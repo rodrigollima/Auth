@@ -13,7 +13,7 @@ class Login extends Form
         $this->setInputFilter(new LoginFilter());
         
         $this->add(array(
-           'name' => 'mail',
+           'name' => 'username',
            'attributes' => array(
                'type' => 'text',
                'placeholder' => 'usuario@seuemail.com',
