@@ -38,14 +38,14 @@ class User
         return $this;
     }
 
-    public function getPass()
+    public function getPassword()
     {
-        return $this->pass;
+        return $this->password;
     }
 
-    public function setPass($pass)
+    public function setPassword($password)
     {
-        $this->pass = $pass;
+        $this->password = $password;
         return $this;
     }
 }
