@@ -8,7 +8,9 @@ class UserRepository extends DocumentRepository {
     
     public function authenticate($username, $password)
     {
-        return $this->findOneBy(array('username' => $username, 'password' => $password));
+        $user = $this->find("5241f1ad024bf9134b9736f3");
+        var_dump($user);exit;
+        //return $this->findOneBy(array(, 'password' => $password));
     }
     
 }

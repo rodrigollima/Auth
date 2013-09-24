@@ -41,8 +41,9 @@ class MongoAuthenticate implements AdapterInterface
     public function authenticate()
     {
         $user = $this->dm->getRepository('Auth\Document\User');
-        $user = $user->authenticate($this->getUsername(), $this->getPassword());
         
+        $user = $user->authenticate($this->getUsername(), $this->getPassword());
+        var_dump($user);exit;
         if (null === $user) {
             return new Result(Result::FAILURE_CREDENTIAL_INVALID, null,  array());
         } else {

@@ -48,6 +48,11 @@ class User
         $this->password = $password;
         return $this;
     }
+    
+    public function toArray() 
+    {
+        return array('id' => $this->getId());
+    }
 }
     
     
