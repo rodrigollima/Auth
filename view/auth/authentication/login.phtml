@@ -1,0 +1,12 @@
+<?php $form = $this->form; ?>
+<div class="form">
+  <h2>Login:</h2>
+  <?php echo $this->form()->openTag($form); ?>
+    <?php echo $this->formRow($form->get('mail')); ?>
+    <?php echo $this->formRow($form->get('password')); ?>
+    <?php echo $this->formRow($form->get('submit')); ?>
+    <?php echo $this->formElement($form->get('csrf')); ?>
+  <?php echo $this->form()->closeTag(); ?>
+</div>
+
+  
