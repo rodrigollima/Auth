@@ -27,7 +27,7 @@ class AuthenticationController extends AbstractActionController
             //Verifica se o form é válido
             if ($form->isValid()) {
                 //Pego o servico adapter do Auth
-                $authAdapter = $this->getServiceLocator()->get('Auth\Adapter\MongoAuthenticate');
+                $authAdapter = $this->getServiceLocator()->get('Auth\Adapter\Mongo\Authenticate');
                 //Verifico se o usuario e senha existem no banco de dados
                 $authAdapter->setUser($data['email'])
                             ->setPass($data['password']);
