@@ -27,14 +27,14 @@ class User
         return $this;
     }
 
-    public function getUser()
+    public function getUsername()
     {
-        return $this->user;
+        return $this->username;
     }
 
-    public function setUser($user)
+    public function setUsername($username)
     {
-        $this->user = $user;
+        $this->username = $username;
         return $this;
     }
 
