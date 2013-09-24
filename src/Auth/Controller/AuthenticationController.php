@@ -4,6 +4,8 @@ namespace Auth\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Zend\Authentication\AuthenticationService;
+use Zend\Authentication\Storage\Session as SessionStorage;
 
 use Auth\Form\Login as FrmLogin;
 
@@ -29,7 +31,7 @@ class AuthenticationController extends AbstractActionController
                 //Pego o servico adapter do Auth
                 $authAdapter = $this->getServiceLocator()->get('Auth\Adapter\Mongo\Authenticate');
                 //Verifico se o usuario e senha existem no banco de dados
-                $authAdapter->setUser($data['email'])
+                $authAdapter->setUser($data['username'])
                             ->setPass($data['password']);
                 //Instancio o AuthenticationService do zend
                 $auth = new AuthenticationService;

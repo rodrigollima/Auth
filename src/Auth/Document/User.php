@@ -1,19 +1,19 @@
 <?php
 
-namespace Auth\Document\User;
-
+namespace Auth\Document;
+    
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
-/** @ODM(repositoryClass="Doctrine\Blog\ORM\UserRepository") */
+/** @ODM\Document(collection="user", repositoryClass="Auth\Document\UserRepository") */
 class User
 {
-    /** @Id @Column(type="integer") */
+    /** @ODM\Id */
     private $id;
 
-    /** @Column(type="string") */
+    /** @ODM\Field(type="string") */
     private $username;
 
-    /** @Column(type="text") */
+    /** @ODM\Field(type="string") */
     private $password;
 
     public function getId()

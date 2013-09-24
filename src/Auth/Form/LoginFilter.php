@@ -9,7 +9,7 @@ class LoginFilter extends InputFilter
     public function __construct()
     {
         $this->add(array(
-           'name' => 'mail',
+           'name' => 'username',
            'required' => true,
            'filters' => array(
                array('name' => 'StripTags'),

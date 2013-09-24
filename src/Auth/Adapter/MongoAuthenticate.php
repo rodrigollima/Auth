@@ -14,7 +14,7 @@ class MongoAuthenticate implements AdapterInterface
     private $dm;
     
     public function __construct(\Doctrine\ODM\MongoDB\DocumentManager $dm) {
-        $this->dm = $db;
+        $this->dm = $dm;
     }
     
     public function getUser()
@@ -40,6 +40,7 @@ class MongoAuthenticate implements AdapterInterface
 
     public function authenticate()
     {
+        /*
         $user = $this->mongoConnection->findOne(
                     array("users.mail"    => $this->getUser(), 
                           "users.password" => $this->getPass(),
@@ -47,7 +48,10 @@ class MongoAuthenticate implements AdapterInterface
                          ),
                     array("users.mail.$" => 1)
                 );
+        */
+        var_dump($this->dm->getRepository('Auth\Document\User'));exit;
         
+        var_dump($user);exit;
         if (null === $user) {
             return new Result(Result::FAILURE_CREDENTIAL_INVALID, null,  array());
         } else {

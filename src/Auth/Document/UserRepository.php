@@ -1,5 +1,7 @@
 <?php
 
+namespace Auth\Document;
+
 use \Doctrine\ODM\MongoDB\DocumentRepository;
 
 class UserRepository extends DocumentRepository {
