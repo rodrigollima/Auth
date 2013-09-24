@@ -31,8 +31,8 @@ class AuthenticationController extends AbstractActionController
                 //Pego o servico adapter do Auth
                 $authAdapter = $this->getServiceLocator()->get('Auth\Adapter\Mongo\Authenticate');
                 //Verifico se o usuario e senha existem no banco de dados
-                $authAdapter->setUser($data['username'])
-                            ->setPass($data['password']);
+                $authAdapter->setUsername($data['username'])
+                            ->setPassword($data['password']);
                 //Instancio o AuthenticationService do zend
                 $auth = new AuthenticationService;
                 //Instancio o SessionStorage do Zend como nome WebcastAdmin

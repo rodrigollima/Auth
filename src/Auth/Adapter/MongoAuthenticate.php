@@ -7,9 +7,9 @@ use Zend\Authentication\Result;
 
 class MongoAuthenticate implements AdapterInterface
 {
-    private $user;
+    private $username;
     
-    private $pass;
+    private $password;
 
     private $dm;
     
@@ -17,41 +17,32 @@ class MongoAuthenticate implements AdapterInterface
         $this->dm = $dm;
     }
     
-    public function getUser()
+    public function getUsername()
     {
-        return $this->user;
+        return $this->username;
     }
 
-    public function setUser($user)
+    public function setUsername($username)
     {
-        $this->user = $user;
+        $this->username = $username;
         return $this;
     }
 
-    public function getPass() {
-        return $this->pass;
+    public function getPassword() {
+        return $this->password;
     }
 
-    public function setPass($pass)
+    public function setPassword($password)
     {
-        $this->pass = $pass;
+        $this->password = $password;
         return $this;
     }
 
     public function authenticate()
     {
-        /*
-        $user = $this->mongoConnection->findOne(
-                    array("users.mail"    => $this->getUser(), 
-                          "users.password" => $this->getPass(),
-                          "users.isActive" => "1",
-                         ),
-                    array("users.mail.$" => 1)
-                );
-        */
-        var_dump($this->dm->getRepository('Auth\Document\User'));exit;
+        $user = $this->dm->getRepository('Auth\Document\User');
+        $user = $user->authenticate($this->getUsername(), $this->getPassword());
         
-        var_dump($user);exit;
         if (null === $user) {
             return new Result(Result::FAILURE_CREDENTIAL_INVALID, null,  array());
         } else {
