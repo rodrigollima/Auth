@@ -79,5 +79,8 @@ return array(
                 )
             )
         )
-    )
+    ),
+    'Auth\Session\Config' => array(
+        
+    ),
 );
