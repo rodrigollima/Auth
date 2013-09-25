@@ -26,11 +26,8 @@ class Module
                 'Auth\Adapter\Mongo\Authenticate' => function($sm) {
                     return new \Auth\Adapter\MongoAuthenticate($sm->get('doctrine.documentmanager.odm_default'));
                 },
-                'Auth\Adapter\Redis\Authenticate' => function($sm) {
-                    //em breve
-                },
-                'Auth\Adapter\Table\Authenticate' => function($sm) {
-                    //em breve
+                'Auth\Adapter\Session\Storage' => function ($sm) {
+                    //
                 },
             ),
         );

@@ -16,6 +16,9 @@ class AuthenticationController extends AbstractActionController
      */
     private $dm;
     
+    /** @var string */
+    private $defaultRoute = 'dashboard';
+    
     public function loginAction()
     {
         $form = new FrmLogin();
@@ -30,7 +33,6 @@ class AuthenticationController extends AbstractActionController
             if ($form->isValid()) {
                 //Pego o servico adapter do Auth
                 $authAdapter = $this->getServiceLocator()->get('Auth\Adapter\Mongo\Authenticate');
-                //Verifico se o usuario e senha existem no banco de dados
                 $authAdapter->setUsername($data['username'])
                             ->setPassword($data['password']);
                 //Instancio o AuthenticationService do zend
@@ -46,7 +48,7 @@ class AuthenticationController extends AbstractActionController
                     //Escrevo uma chave usadno o nome de user
                     $sessionStorage->write($identity['user'], null);
                     //Retorno o usuario para a rota admin
-                    return $this->redirect()->toRoute("dashboard");
+                    return $this->redirect()->toRoute($this->defaultRoute);
                 }
             }
         }
