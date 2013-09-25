@@ -46,15 +46,12 @@ class Module
     {
         return array(
             'factories' => array(
-                'Auth\Adapter\Mongo\Authenticate' => function ($sm) {
+                'Auth\Adapter\Mongo\Authenticate' => function($sm) {
                     return new \Auth\Adapter\MongoAuthenticate($sm->get('doctrine.documentmanager.odm_default'));
                 },
-                'Auth\Adapter\Table\Authenticate' => function ($sm) {
-                    //em breve
-                },
                 'Auth\Adapter\Session\Storage' => function ($sm) {
-                    
-                }
+                    //
+                },
             ),
         );
     }
