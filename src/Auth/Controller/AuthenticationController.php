@@ -37,8 +37,8 @@ class AuthenticationController extends AbstractActionController
                             ->setPassword($data['password']);
                 //Instancio o AuthenticationService do zend
                 $auth = new AuthenticationService;
-                //Instancio o SessionStorage do Zend como nome WebcastAdmin
-                $sessionStorage = new SessionStorage("Administrator");
+                $sessionManager = $this->getServiceLocator()->get('Auth\Adapter\Session\StorageManager');
+                $sessionStorage = new SessionStorage('Auth', null, $sessionManager);
                 //Pego o resultado do authenticate
                 $result = $auth->authenticate($authAdapter);
                 //Verifico se o usuario é valido no sistema
@@ -46,7 +46,7 @@ class AuthenticationController extends AbstractActionController
                     //Pega o valor da identitida
                     $identity = $auth->getIdentity(); 
                     //Escrevo uma chave usadno o nome de user
-                    $sessionStorage->write($identity['user'], null);
+                    $sessionStorage->write($identity['user']);
                     //Retorno o usuario para a rota admin
                     return $this->redirect()->toRoute($this->defaultRoute);
                 }

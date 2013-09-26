@@ -58,10 +58,10 @@ return array(
         'not_found_template'       => 'error/404',
         'exception_template'       => 'error/index',
         'template_map' => array(
-            'layout/auth'           => __DIR__ . '/../view/layout/auth.phtml',
-            'auth/index/index' => __DIR__ . '/../view/auth/index/index.phtml',
-            'error/404'               => __DIR__ . '/../view/error/404.phtml',
-            'error/index'             => __DIR__ . '/../view/error/index.phtml',
+            'layout/auth'          => __DIR__ . '/../view/layout/auth.phtml',
+            'auth/index/index'     => __DIR__ . '/../view/auth/index/index.phtml',
+            'error/404'            => __DIR__ . '/../view/error/404.phtml',
+            'error/index'          => __DIR__ . '/../view/error/index.phtml',
         ),
         'template_path_stack' => array(
             __DIR__ . '/../view',
@@ -81,6 +81,10 @@ return array(
         )
     ),
     'Auth\Session\Config' => array(
-        
+        'type'  => 'redis',
+        'redis' => array(
+            'phpSaveHandler' => 'redis',
+            'savePath' => 'tcp://127.0.0.1:6379?weight=1&timeout=1',  
+        ),
     ),
 );

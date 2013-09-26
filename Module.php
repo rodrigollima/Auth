@@ -4,6 +4,8 @@ namespace Auth;
 
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
+use Zend\Session\Config\SessionConfig;
+use Zend\Session\SessionManager;
 
 class Module
 {
@@ -49,8 +51,14 @@ class Module
                 'Auth\Adapter\Mongo\Authenticate' => function($sm) {
                     return new \Auth\Adapter\MongoAuthenticate($sm->get('doctrine.documentmanager.odm_default'));
                 },
-                'Auth\Adapter\Session\Storage' => function ($sm) {
-                    //
+                'Auth\Adapter\Session\StorageManager' => function ($sm) {
+                    $config = $sm->get('config');
+                    $config = $config['Auth\Session\Config'];
+                    if ($config['type'] == 'redis') {
+                        $sessionConfig = new SessionConfig();
+                        $sessionConfig->setOptions($config['redis']);
+                        return new SessionManager($sessionConfig);
+                    }
                 },
             ),
         );
