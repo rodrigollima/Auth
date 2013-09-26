@@ -6,6 +6,8 @@ use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
 use Zend\Session\Config\SessionConfig;
 use Zend\Session\SessionManager;
+use Zend\Authentication\AuthenticationService;
+use Zend\Authentication\Storage\Session as SessionStorage;
 
 class Module
 {
@@ -14,6 +16,10 @@ class Module
         $eventManager        = $e->getApplication()->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
+        
+        $e->getApplication()->getEventManager()->getSharedManager()->attach('Zend\Mvc\Controller\AbstractActionController', 'dispatch', $callback, $priority);
+        
+        $app->getEventManager()->attach('dispatch', array($this, 'setLayout'));
         
         $e->getApplication()->getEventManager()->getSharedManager()->attach('Zend\Mvc\Controller\AbstractActionController', 'dispatch', function($e)
         {
@@ -26,6 +32,11 @@ class Module
                 $controller->layout('layout/'.$moduleNamespace);
             }
         }, 100);
+    }
+    
+    public function setLayout()
+    {
+        
     }
     
     public function getConfig()
@@ -54,11 +65,18 @@ class Module
                 'Auth\Adapter\Session\StorageManager' => function ($sm) {
                     $config = $sm->get('config');
                     $config = $config['Auth\Session\Config'];
-                    if ($config['type'] == 'redis') {
+                    if (isset($config) && $config['type'] == 'redis') {
                         $sessionConfig = new SessionConfig();
                         $sessionConfig->setOptions($config['redis']);
                         return new SessionManager($sessionConfig);
-                    }
+                    } 
+                    
+                    return null;
+                },
+                'Auth\GetIdentity' => function ($sm) {
+                     $auth = new AuthenticationService;
+                     $auth->setStorage(new SessionStorage("Auth", null, $sm->get('Auth\Adapter\Session\StorageManager')));
+                     return $auth->getIdentity();
                 },
             ),
         );
