@@ -17,26 +17,20 @@ class Module
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
         
-        $e->getApplication()->getEventManager()->getSharedManager()->attach('Zend\Mvc\Controller\AbstractActionController', 'dispatch', $callback, $priority);
-        
-        $app->getEventManager()->attach('dispatch', array($this, 'setLayout'));
-        
-        $e->getApplication()->getEventManager()->getSharedManager()->attach('Zend\Mvc\Controller\AbstractActionController', 'dispatch', function($e)
-        {
-            $controller = $e->getTarget();
-            $controllerClass = get_class($controller);
-            $moduleNamespace = strtolower(substr($controllerClass, 0, strpos($controllerClass, '\\')));
-            $config = $e->getApplication()->getServiceManager()->get('config');
-            
-            if (isset($config['view_manager']['template_map']['layout/'.$moduleNamespace])) {
-                $controller->layout('layout/'.$moduleNamespace);
-            }
-        }, 100);
+        $e->getApplication()->getEventManager()->getSharedManager()->attach('Zend\Mvc\Controller\AbstractActionController', 'dispatch', array($this, 'setLayout'), 100);
+ 
     }
     
-    public function setLayout()
+    public function setLayout(MvcEvent $e)
     {
+        $controller = $e->getTarget();
+        $config = $e->getApplication()->getServiceManager()->get('config');
+        $controllerClass = get_class($controller);
+        $moduleNamespace = strtolower(substr($controllerClass, 0, strpos($controllerClass, '\\')));
         
+        if (isset($config['view_manager']['template_map']['layout/'.$moduleNamespace])) {
+            $controller->layout('layout/'.$moduleNamespace);
+        }
     }
     
     public function getConfig()
