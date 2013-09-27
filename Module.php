@@ -53,7 +53,7 @@ class Module
     {
         return array(
             'factories' => array(
-                'Auth\Adapter\Mongo\Authenticate' => function($sm) {
+                'Auth\Adapter\Mongo' => function($sm) {
                     return new \Auth\Adapter\MongoAuthenticate($sm->get('doctrine.documentmanager.odm_default'));
                 },
                 'Auth\Adapter\Session\StorageManager' => function ($sm) {
