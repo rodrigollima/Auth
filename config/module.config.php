@@ -80,11 +80,28 @@ return array(
             )
         )
     ),
-    'Auth\Session\Config' => array(
-        'type'  => 'redis',
-        'redis' => array(
-            'phpSaveHandler' => 'redis',
-            'savePath' => 'tcp://127.0.0.1:6379?weight=1&timeout=1',  
+    'Auth\Config' => array(
+        //Implementa configurações padrão para busca de dados e validacao
+        'Authentication\Adapter' => array(
+            'type' => 'mongo',
+            'mongo' => array(
+                'colection' => 'users',
+                'userKey'   => 'username',
+                'passKey'   => 'password',
+            ),
+            'dbtable' => array(
+                'table'     => 'users',
+                'userKey'   => 'username',
+                'passKey'   => 'password',
+            ),
+        ),
+        //Implementa o modo como será salvo os dados da sessão
+        'Session\Storage' => array(
+            'type'  => 'redis',
+            'redis' => array(
+                'phpSaveHandler' => 'redis',
+                'savePath' => 'tcp://127.0.0.1:6379?weight=1&timeout=1',  
+            ),
         ),
     ),
 );

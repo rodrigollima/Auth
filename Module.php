@@ -53,12 +53,22 @@ class Module
     {
         return array(
             'factories' => array(
-                'Auth\Adapter\Mongo' => function($sm) {
-                    return new \Auth\Adapter\MongoAuthenticate($sm->get('doctrine.documentmanager.odm_default'));
+                'Auth\Adapter\Authentication' => function($sm) {
+                    
+            $config = $sm->get('Auth\Config');
+                    $config = $config['Authentication\Adapter'];
+                    
+                    if (isset($config) && $config['type'] == 'mongo') {
+                        return new \Auth\Adapter\MongoAuthenticate($sm->get('doctrine.documentmanager.odm_default'));
+                    }
+                    
+                    return null;
                 },
                 'Auth\Adapter\Session\StorageManager' => function ($sm) {
-                    $config = $sm->get('config');
-                    $config = $config['Auth\Session\Config'];
+                    
+                    $config = $sm->get('Auth\Config');
+                    $config = $config['Session\Storage'];
+                    
                     if (isset($config) && $config['type'] == 'redis') {
                         $sessionConfig = new SessionConfig();
                         $sessionConfig->setOptions($config['redis']);
@@ -67,11 +77,15 @@ class Module
                     
                     return null;
                 },
-                'Auth\GetIdentity' => function ($sm) {
+                'Auth\Identity' => function ($sm) {
                      $auth = new AuthenticationService;
                      $auth->setStorage(new SessionStorage("Auth", null, $sm->get('Auth\Adapter\Session\StorageManager')));
                      return $auth->getIdentity();
                 },
+                'Auth\Config' => function ($sm) {
+                    $config =  $sm->get('config');
+                    return $config['Auth\Config'];
+                }, 
             ),
         );
     }

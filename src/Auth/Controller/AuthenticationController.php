@@ -32,7 +32,7 @@ class AuthenticationController extends AbstractActionController
             //Verifica se o form é válido
             if ($form->isValid()) {
                 //Pego o servico adapter do Auth
-                $authAdapter = $this->getServiceLocator()->get('Auth\Adapter\Mongo');
+                $authAdapter = $this->getServiceLocator()->get('Auth\Adapter\Authentication');
                 $authAdapter->setUsername($data['username'])
                             ->setPassword($data['password']);
                 //Instancio o AuthenticationService do zend
