@@ -55,7 +55,7 @@ class Module
             'factories' => array(
                 'Auth\Adapter\Authentication' => function($sm) {
                     
-            $config = $sm->get('Auth\Config');
+                    $config = $sm->get('Auth\Config');
                     $config = $config['Authentication\Adapter'];
                     
                     if (isset($config) && $config['type'] == 'mongo') {
