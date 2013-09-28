@@ -13,6 +13,7 @@ class MongoAuthenticate implements AdapterInterface
 
     private $dm;
     
+    
     public function __construct(\Doctrine\ODM\MongoDB\DocumentManager $dm) {
         $this->dm = $dm;
     }

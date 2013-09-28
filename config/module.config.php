@@ -84,16 +84,6 @@ return array(
         //Implementa configurações padrão para busca de dados e validacao
         'Authentication\Adapter' => array(
             'type' => 'mongo',
-            'mongo' => array(
-                'colection' => 'users',
-                'userKey'   => 'username',
-                'passKey'   => 'password',
-            ),
-            'dbtable' => array(
-                'table'     => 'users',
-                'userKey'   => 'username',
-                'passKey'   => 'password',
-            ),
         ),
         //Implementa o modo como será salvo os dados da sessão
         'Session\Storage' => array(

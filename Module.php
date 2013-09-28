@@ -58,8 +58,10 @@ class Module
                     $config = $sm->get('Auth\Config');
                     $config = $config['Authentication\Adapter'];
                     
-                    if (isset($config) && $config['type'] == 'mongo') {
+                    if (isset($config['type']) && $config['type'] == 'mongo') {
                         return new \Auth\Adapter\MongoAuthenticate($sm->get('doctrine.documentmanager.odm_default'));
+                    } elseif (isset($config['type']) && $config['type'] == 'dbtable') {
+                        
                     }
                     
                     return null;
