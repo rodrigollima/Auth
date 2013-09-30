@@ -1,5 +1,5 @@
 ZF2-Auth
-====
+=============
 
 Modulo para autenticação com ZF2
 - MongoDB(necessário DoctrineODMMongoModule)
@@ -11,8 +11,11 @@ Modulo para autenticação com ZF2
   - Arquivo (default)
   - Redis
     
+- Configuração
+--------------
 
-config/module.config.php
+config/module.config.php:
+
     'Auth\Config' => array(
         //Define qual será o metodo de autenticação usado
         'Authentication\Adapter' => array(
