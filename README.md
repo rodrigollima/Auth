@@ -4,16 +4,15 @@ ZF2-Auth
 Modulo para autenticação com ZF2
 - MongoDB(necessário DoctrineODMMongoModule)
 
-    Documento Básico para autenticação usando MongoDB:
-    
-    <code>
+    <pre>
+    <b>Documento Básico para autenticação usando MongoDB:</b>
     db.users.findOne()
     {
 	"_id" : ObjectId("5241f1ad024bf9134b9736f3"),
 	"username" : "rodrigoxone@gmail.com",
 	"password" : "123456"
     }   
-    </code>
+    </pre>
 
 - Sessões
   - Arquivo (default)
