@@ -6,8 +6,8 @@ Modulo para autenticação com ZF2
 
     Documento Básico para autenticação usando MongoDB:
     
-
-    > db.users.findOne()
+    
+    db.users.findOne()
     {
 	"_id" : ObjectId("5241f1ad024bf9134b9736f3"),
 	"username" : "rodrigoxone@gmail.com",
