@@ -90,11 +90,11 @@ class User
 
     public function setPassword($password)
     {
-        $this->password = $this->encodePassword($password);
+        $this->password = self::encodePassword($password);
         return $this;
     }
     
-    public function encodePassword($password)
+    public static function encodePassword($password)
     {
         $salt = Rand::getBytes(strlen($password), true);
         $hash = Pbkdf2::calc('sha256', $password, $salt, 10000, strlen($password)*2);
