@@ -4,6 +4,8 @@ namespace Auth\Document;
     
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Zend\Stdlib\Hydrator\ClassMethods;
+use Zend\Crypt\Key\Derivation\Pbkdf2;
+use Zend\Math\Rand;
 
 /** @ODM\Document(collection="users", repositoryClass="Auth\Document\UserRepository") */
 class User
@@ -88,8 +90,16 @@ class User
 
     public function setPassword($password)
     {
-        $this->password = $password;
+        $this->password = $this->encodePassword($password);
         return $this;
+    }
+    
+    public function encodePassword($password)
+    {
+        $salt = Rand::getBytes(strlen($password), true);
+        $hash = Pbkdf2::calc('sha256', $password, $salt, 10000, strlen($password)*2);
+        
+        return $hash;
     }
     
     public function toArray() 
