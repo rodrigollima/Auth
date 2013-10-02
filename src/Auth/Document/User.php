@@ -9,7 +9,16 @@ class User
 {
     /** @ODM\Id */
     private $id;
-
+    
+    /** @ODM\Field(type="string") */
+    private $name;
+    
+    /** @ODM\Field(type="string") */
+    private $displayName;
+    
+    /** @ODM\Field(type="string") */
+    private $mail;
+    
     /** @ODM\Field(type="string") */
     private $username;
 
@@ -24,6 +33,39 @@ class User
     public function setId($id)
     {
         $this->id = $id;
+        return $this;
+    }
+
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function setName($name)
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    public function getDisplayName()
+    {
+        return $this->displayName;
+    }
+
+    public function setDisplayName($displayName)
+    {
+        $this->displayName = $displayName;
+        return $this;
+    }
+
+    public function getMail()
+    {
+        return $this->mail;
+    }
+
+    public function setMail($mail)
+    {
+        $this->mail = $mail;
         return $this;
     }
 
