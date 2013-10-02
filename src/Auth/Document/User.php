@@ -105,9 +105,14 @@ class User
     
     public function toArray() 
     {
-        $hydrator = new ClassMethods();
-        return $hydrator->extract($this);
-        
+        return array(
+            'id'          => $this->getId(),
+            'name'        => $this->getName(),
+            'displayName' => $this->getDisplayName(),
+            'mail'        => $this->getMail(),
+            'username'    => $this->getUsername(),
+            'password'    => $this->getPassword(),
+        );
     }
 }
     
