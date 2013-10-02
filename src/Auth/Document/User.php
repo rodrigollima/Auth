@@ -3,6 +3,7 @@
 namespace Auth\Document;
     
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
+use Zend\Stdlib\Hydrator\ClassMethods;
 
 /** @ODM\Document(collection="users", repositoryClass="Auth\Document\UserRepository") */
 class User
@@ -93,11 +94,9 @@ class User
     
     public function toArray() 
     {
-        return array(
-            'id' => $this->getId(),
-            'username' => $this->getUsername(),
-            'password' => $this->getPassword(),
-        );
+        $hydrator = new ClassMethods();
+        return $hydrator->extract($this);
+        
     }
 }
     
