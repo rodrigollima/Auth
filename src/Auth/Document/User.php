@@ -4,8 +4,7 @@ namespace Auth\Document;
     
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Zend\Stdlib\Hydrator\ClassMethods;
-use Zend\Crypt\Key\Derivation\Pbkdf2;
-use Zend\Math\Rand;
+use Zend\Crypt\Password\Bcrypt;
 
 /** @ODM\Document(collection="users", repositoryClass="Auth\Document\UserRepository") */
 class User
@@ -22,7 +21,10 @@ class User
     /** @ODM\Field(type="string") */
     private $mail;
     
-    /** @ODM\Field(type="string") */
+    /** 
+     * @ODM\Field(type="string")
+     * @ODM\Index(unique=true, order="asc")
+     */
     private $username;
 
     /** @ODM\Field(type="string") */
@@ -96,12 +98,16 @@ class User
     
     public static function encodePassword($password)
     {
-        $salt = Rand::getBytes(strlen($password), true);
-        $hash = Pbkdf2::calc('sha256', $password, $salt, 10000, strlen($password)*2);
-        
-        return $hash;
+        $bcrypt = new Bcrypt();
+        return $bcrypt->create($password);
     }
     
+    public static function checkPassword($password, $hash)
+    {
+        $bcrypt = new Bcrypt();
+        return $bcrypt->verify($password, $hash);
+    }
+   
     
     public function toArray() 
     {
