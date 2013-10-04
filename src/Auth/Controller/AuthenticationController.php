@@ -58,8 +58,10 @@ class AuthenticationController extends AbstractActionController
 
     public function logoutAction()
     {
-        var_dump($this->getDm());exit;
-        return new ViewModel();
+        $sessionStorage = new SessionStorage('Auth');
+        $sessionStorage->clear();
+        
+        $this->redirect()->toRoute('auth-login');
     }
     
     private function getDm()
