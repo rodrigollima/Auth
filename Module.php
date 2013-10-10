@@ -91,4 +91,15 @@ class Module
             ),
         );
     }
+
+    public function getViewHelperConfig()
+    {
+        return array(
+            'factories' => array(
+                'identityHelper' => function($sm) {
+                    return new \Auth\View\Helper\IdentityHelper($sm->getServiceLocator()->get('Auth\Adapter\Session\StorageManager'));
+                }
+            ),
+        );
+    }
 }
