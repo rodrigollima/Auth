@@ -87,13 +87,13 @@ return array(
         ),
         //Implementa o modo como será salvo os dados da sessão
         'Session\Storage' => array(
-            'type'  => 'redis',//redis,memcahced
+            'type'  => 'memcahced',//redis,memcahced
             'redis' => array(
                 'phpSaveHandler' => 'redis',
                 'savePath' => 'tcp://127.0.0.1:6379?weight=1&timeout=1',  
             ),
-            'memcached' => array(
-                'phpSaveHandler' => 'memcached',
+            'memcahced' => array(
+                'phpSaveHandler' => 'memcahced',
                 'savePath' => 'tcp://127.0.0.1:11211',
             ),
         ),

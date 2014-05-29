@@ -70,15 +70,12 @@ class Module
                     $config = $sm->get('Auth\Config');
                     $config = $config['Session\Storage'];
 
-                    var_dump($config);exit;
+                    $sessionConfig = new SessionConfig();
+                    $sessionConfig->setOptions($config[$config['type']]);
+                    var_dump($sessionConfig);exit;
+                    //$sessionManager = new SessionManager($sessionConfig);
+                    var_dump($sessionManager);exit;
 
-                    if (isset($config) && $config['type'] == 'redis') {
-                        $sessionConfig = new SessionConfig();
-                        $sessionConfig->setOptions($config['redis']);
-                        return new SessionManager($sessionConfig);
-                    } 
-                    
-                    return null;
                 },
                 'Auth\Identity' => function ($sm) {
                      $auth = new AuthenticationService;
