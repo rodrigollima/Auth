@@ -54,7 +54,6 @@ class Module
         return array(
             'factories' => array(
                 'Auth\Adapter\Authentication' => function($sm) {
-                    
                     $config = $sm->get('Auth\Config');
                     $config = $config['Authentication\Adapter'];
                     
@@ -70,7 +69,9 @@ class Module
                     
                     $config = $sm->get('Auth\Config');
                     $config = $config['Session\Storage'];
-                    
+
+                    var_dump($config);exit;
+
                     if (isset($config) && $config['type'] == 'redis') {
                         $sessionConfig = new SessionConfig();
                         $sessionConfig->setOptions($config['redis']);
